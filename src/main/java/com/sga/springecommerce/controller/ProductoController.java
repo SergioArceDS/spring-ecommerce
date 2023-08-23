@@ -68,14 +68,12 @@ public class ProductoController {
 
     @PostMapping("/update")
     public String update(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
+        Producto p;
+        p = productoService.get(producto.getId()).get();
+
         if(file.isEmpty()){
-            Producto p;
-            p = productoService.get(producto.getId()).get();
             producto.setImagen(p.getImagen());
         }else{
-            Producto p;
-            p = productoService.get(producto.getId()).get();
-
             if(!p.getImagen().equals("default.jpg")){
                 uploadFileService.deleteImage(p.getImagen());
             }
@@ -83,6 +81,7 @@ public class ProductoController {
             String nombreImagen = uploadFileService.saveImage(file);
             producto.setImagen(nombreImagen);
         }
+        producto.setUsuario(p.getUsuario());
         productoService.save(producto);
         return "redirect:/productos";
     }
