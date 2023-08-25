@@ -2,7 +2,7 @@ package com.sga.springecommerce.controller;
 
 import com.sga.springecommerce.model.Producto;
 import com.sga.springecommerce.model.Usuario;
-import com.sga.springecommerce.service.ProductoService;
+import com.sga.springecommerce.service.IProductoService;
 import com.sga.springecommerce.service.UploadFileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ import java.util.Optional;
 public class ProductoController {
 
     @Autowired
-    private ProductoService productoService;
+    private IProductoService productoService;
 
     @Autowired
     private UploadFileService uploadFileService;

@@ -1,7 +1,7 @@
 package com.sga.springecommerce.service;
 
 import com.sga.springecommerce.model.Usuario;
-import com.sga.springecommerce.repository.UsuarioRepository;
+import com.sga.springecommerce.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +11,7 @@ import java.util.Optional;
 public class UsuarioServiceImpl implements IUsuarioService{
 
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private IUsuarioRepository usuarioRepository;
 
     @Override
     public Optional<Usuario> findById(Integer id) {
