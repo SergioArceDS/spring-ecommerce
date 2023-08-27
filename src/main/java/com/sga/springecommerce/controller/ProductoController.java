@@ -3,7 +3,9 @@ package com.sga.springecommerce.controller;
 import com.sga.springecommerce.model.Producto;
 import com.sga.springecommerce.model.Usuario;
 import com.sga.springecommerce.service.IProductoService;
+import com.sga.springecommerce.service.IUsuarioService;
 import com.sga.springecommerce.service.UploadFileService;
+import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class ProductoController {
     private IProductoService productoService;
 
     @Autowired
+    private IUsuarioService usuarioService;
+
+    @Autowired
     private UploadFileService uploadFileService;
 
     private final Logger logger = LoggerFactory.getLogger(ProductoController.class);
@@ -40,9 +45,9 @@ public class ProductoController {
     }
 
     @PostMapping("/guardar")
-    public String save(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
+    public String save(Producto producto, @RequestParam("img") MultipartFile file, HttpSession session) throws IOException {
         logger.info("Este es el objeto producto {}", producto);
-        Usuario usuario = new Usuario(1, "", "", "", "", "", "", "");
+        Usuario usuario = usuarioService.findById(Integer.parseInt(session.getAttribute("idUsuario").toString())).get();
         producto.setUsuario(usuario);
 
         if(producto.getId() == null){
