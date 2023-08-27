@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "ordenes")
@@ -25,6 +26,6 @@ public class Orden {
     @ManyToOne
     private Usuario usuario;
 
-    @OneToOne(mappedBy = "orden")
-    private DetalleOrden detalleOrden;
+    @OneToMany(mappedBy = "orden")
+    private List<DetalleOrden> detalleOrden;
 }
