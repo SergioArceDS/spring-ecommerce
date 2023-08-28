@@ -23,4 +23,5 @@ public class Producto {
 
     @ManyToOne()
     private Usuario usuario;
+
 }
