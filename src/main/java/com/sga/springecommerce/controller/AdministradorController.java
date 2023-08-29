@@ -1,5 +1,6 @@
 package com.sga.springecommerce.controller;
 
+import com.sga.springecommerce.model.Orden;
 import com.sga.springecommerce.model.Producto;
 import com.sga.springecommerce.model.Usuario;
 import com.sga.springecommerce.service.IOrdenService;
@@ -10,6 +11,7 @@ import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -48,5 +50,13 @@ public class AdministradorController {
         model.addAttribute("ordenes", ordenService.findAll());
 
         return "administrador/ordenes";
+    }
+
+    @GetMapping("/detalle/{id}")
+    public String detalle(@PathVariable Integer id, Model model){
+        Orden orden = ordenService.findById(id).get();
+        model.addAttribute("detalles", orden.getDetalleOrden());
+
+        return "administrador/detalleorden";
     }
 }
