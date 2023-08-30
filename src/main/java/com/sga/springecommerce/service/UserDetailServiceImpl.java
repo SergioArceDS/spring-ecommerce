@@ -5,11 +5,11 @@ import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -22,8 +22,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Autowired
     private IUsuarioService usuarioService;
 
-    private BCryptPasswordEncoder passwordEncoder;
-
+    @Autowired
     HttpSession session;
 
     @Override
@@ -36,7 +35,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
             Usuario usuario = usuarioOptional.get();
             return User.builder()
                     .username(usuario.getNombre())
-                    .password(passwordEncoder.encode(usuario.getPassword()))
+                    .password(usuario.getPassword())
                     .roles(usuario.getTipo())
                     .build();
         }else{
